@@ -38,9 +38,7 @@ function shop() {
             ])
             .then(function(answer) {
                 stock = res[choiceArr.indexOf(answer.itemPrompt)].stock_quantity;
-                console.log(stock);
                 newStock = stock - answer.numItems;
-                console.log(newStock);
                 if (answer.numItems <= stock) {
                     connection.query(
                         "UPDATE products SET ? WHERE ?",
