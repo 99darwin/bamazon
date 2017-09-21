@@ -1,0 +1,27 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "A console-based e-commerce shop using MySQL and Node.js that takes orders and tracks inventory and can report on top items / departments.",
+  "main": "bamazon.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/99darwin/bamazon.git"
+  },
+  "keywords": [
+    "c-commerce"
+  ],
+  "author": "99darwin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/99darwin/bamazon/issues"
+  },
+  "homepage": "https://github.com/99darwin/bamazon#readme",
+  "dependencies": {
+    "console.table": "^0.9.1",
+    "inquirer": "^3.3.0",
+    "mysql": "^2.14.1"
+  }
+}
