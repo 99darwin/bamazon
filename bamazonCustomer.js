@@ -10,7 +10,8 @@ var connection = mysql.createConnection({
     database: 'bamazon_db'
 });
 
-
+var stock;
+var newStock;
 function shop() {
     connection.query(
         'SELECT * FROM products', function(err, res) {
@@ -36,16 +37,16 @@ function shop() {
                 }
             ])
             .then(function(answer) {
-                var stock;
-                for (var i = 0; i < res.length; i++) {
-                    stock = res[i].stock_quantity;
-                }
+                stock = res[choiceArr.indexOf(answer.itemPrompt)].stock_quantity;
+                console.log(stock);
+                newStock = stock - answer.numItems;
+                console.log(newStock);
                 if (answer.numItems <= stock) {
                     connection.query(
                         "UPDATE products SET ? WHERE ?",
                         [
                             {
-                                stock_quantity: stock -= answer.numItems
+                                stock_quantity: newStock
                             },
                             {
                                 product_name: answer.itemPrompt
@@ -54,14 +55,33 @@ function shop() {
                         function(err) {
                             if (err) throw err;
                             console.log('Thank you for your purchase!');
-                            setTimeout(shop, 3000);
+                            keepShopping();
                         }
                     );
-                } else {
-                    console.log('Sorry this item is out of stock! Keep shopping?');
+                } else if (answer.numItems > stock) {
+                    console.log('Insufficient stock!');
+                    keepShopping();
                 }
             });
         }
     );
 };
 shop();
+
+function keepShopping() {
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: 'Keep shopping?',
+            name: 'keepShopping',
+            choices: ['yes', 'no']
+        }
+    ]).then(function(answer) {
+        if (answer.keepShopping === 'yes') {
+            shop();
+        } else {
+            console.log('Thank you, come again!');
+            connection.end();
+        }
+    });
+}
