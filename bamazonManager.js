@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: '',
+    password: 'N0dogsallowed!23',
     database: 'bamazon_db'
 });
 
@@ -101,12 +101,12 @@ function addInventory() {
                 }
             ]).then(function(answer) {
                 stock = res[choiceArr.indexOf(answer.inventory)].stock_quantity;
-                newStock = answer.updateProduct += stock;
+                newStock = parseInt(answer.updateProduct) + parseInt(stock);
                 connection.query(
                     'UPDATE products SET ? WHERE ?',
                     [
                         {
-                            stock_quantity: parseInt(newStock)
+                            stock_quantity: newStock
                         },
                         {
                             product_name: answer.inventory
