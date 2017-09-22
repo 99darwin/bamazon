@@ -29,6 +29,8 @@ node bamazonManger.js
 
 ## How it works
 
+To see a video demonstration of the program, clone the repo and view ```bamazon-demonstration.mov```
+
 ### Customer view
 - The program will display a table of available items available for purchase and then prompt you for your choice.
 - Once you choose an item, the program will ask you how many items you'd like to purchase.
